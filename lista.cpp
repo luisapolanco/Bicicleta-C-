@@ -10,38 +10,44 @@ Lista :: Lista()
     this->cab = NULL; 
 }
 
-void Lista::agregarOr(Nodo *item)
+Nodo* Lista::agregarOr(Nodo *cab, Nodo *nuevoItem)
 {
-    if(this->cab == NULL)
+    if(cab == NULL )
     {
-        item->next = this->cab;
-        this->cab = item;
-        item->id = nodoId; 
-        nodoId = nodoId + 1;
+        return cab; 
     }
-    else{
-        Nodo *temp = this->cab;
-        while(temp != NULL){
-            char colorTemp[] = {temp->dato->getColor()};
-            char colorItem[] = {item->dato->getColor()};
-            int res = strcmp(colorTemp, colorItem);
-            if(res == 0)
-            {
-                item->id = this->nodoId;
-                item->next = temp->next;
-                this->cab->next = item;
-                nodoId = nodoId + 1;
-            }
-            else if(res > 0)
-            {
-                item->id = this->nodoId;
-                this->cab = item;
-                this->cab->next = temp;
-                nodoId = nodoId + 1;
-            }
-            temp = temp->next;
+    else
+    {
+        char colorTemp[] = {cab->dato->getColor()};
+        char colorItem[] = {nuevoItem->dato->getColor()};
+        int res = strcmp(colorTemp, colorItem);
+        if(res == 0)
+        {
+            nuevoItem->id = this->nodoId;
+            nuevoItem->next = cab->next;
+            cab->next = nuevoItem;
+            nodoId = nodoId + 1;
+            return cab;
         }
+        else if(res > 0)
+        {
+            nuevoItem->id = this->nodoId;
+            Nodo *temp = cab; 
+            cab = nuevoItem;
+            cab->next = temp; 
+            nodoId = nodoId + 1;
+            return cab;
+        }
+        return agregarOr(cab->next, nuevoItem );         
     }
+}
+
+void Lista::AgregarPrimero(Nodo *cab, Nodo *nuevoItem)
+{    
+    nuevoItem->next = cab;
+    cab = nuevoItem;
+    nuevoItem->id = this->nodoId; 
+    this->nodoId = this->nodoId + 1;
 }
 
 
@@ -68,7 +74,7 @@ int Lista:: contarLista()
     return contador;
 }
 
-Nodo Lista::Eliminar(Nodo *cab, int id, int j, Nodo nodoPrevio){
+Nodo* Lista :: Eliminar(Nodo *cab, int id, int j, Nodo *nodoPrevio = NULL){
     int cantidad = this->contarLista(); 
     if(id > cantidad)
     {
@@ -77,23 +83,18 @@ Nodo Lista::Eliminar(Nodo *cab, int id, int j, Nodo nodoPrevio){
     else
     {
         if(cab == NULL){
-            return *this->cab;
+            return cab;
         }
         else if (id - 1 == j){
             Eliminar(cab->next, id, j + 1, cab);
-            return *this->cab; 
+            return cab; 
+        }else if (id == j){
+            nodoPrevio -> next = cab -> next; 
+            return nodoPrevio; 
         }
-        
-       
-    elif posicion == j:
-        if posicion == 1:
-            return head.next
-        else:
-            nodoprevio.next = head.next
-            return nodoprevio    
-    else:
-        borrar(head.next, posicion, j +1)
-        return head
+        else{
+            Eliminar(cab->next, id, j + 1);
+            return cab; 
     }
 }
 /*int Lista:: BuscarObjeto()
@@ -103,20 +104,3 @@ Nodo Lista::Eliminar(Nodo *cab, int id, int j, Nodo nodoPrevio){
         temp->dato->toString(); 
     }
 }*/
-
-
-def borrar(head: Node, posicion: int, j = 1, nodoprevio = Node):
-    if head == None:
-        return head
-    elif posicion - 1 == j:
-        borrar(head.next, posicion, j + 1, head)
-        return head
-    elif posicion == j:
-        if posicion == 1:
-            return head.next
-        else:
-            nodoprevio.next = head.next
-            return nodoprevio    
-    else:
-        borrar(head.next, posicion, j +1)
-        return head

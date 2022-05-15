@@ -22,6 +22,9 @@ void GetMenu(Lista *lista){
         string serial; 
         string nombre; 
         int telefono; 
+        Nodo *nodo; 
+        Nodo *nodoNuevo; 
+        int id; 
         cout<<"Elegir un numero";
         cout<<"Opcion 1: agregar ordenado";
         cout<<"Opcion 2: eliminar";
@@ -39,29 +42,30 @@ void GetMenu(Lista *lista){
                 cin>>telefono; 
                 Persona *persona = new Persona(telefono, nombre);
                 Bicicleta *bicicleta = new Bicicleta(marca, serial, color, persona);
-                Nodo *nodo = new Nodo(bicicleta); 
-                lista->agregarOr(nodo); 
-            break;
-
+                nodo = new Nodo(bicicleta); 
+                nodoNuevo = lista->agregarOr(lista->cab, nodo); 
+                lista -> cab = nodoNuevo; 
+                break;               
             case 2: cout<<"Elegiste eliminar";
+                cout <<"Ingrese Id de Bicicleta que desea elmininar"<<endl; 
+                cin>>id; 
+                nodo = lista->Eliminar(lista->cab, id, 0); 
+                lista -> cab = nodo; 
+                break;
 
-            break;
+            case 3: cout<<"Elegiste ver los datos";
+                lista->verDatos(); 
+                break;
 
-            case 3: cout<<"elegiste ver los datos";
-        
-            break;
+            case 4: cout<<"Elegiste contar";
+                lista->contarLista(); 
+                break;
 
-            case 4: cout<<"elegiste contar";
-        
-            break;
-
-            case 5: cout<<"elegiste ordenar";
+            case 5: cout<<"Elegiste SALIR";
                 var = false; 
-            break;
-
-
+                break;
             default: cout<<"no es una opcion";
-            break;
+                break;
 
 
         }
@@ -76,7 +80,12 @@ Lista GetDummies(){
         Dummy *dummy = new Dummy(); 
         Bicicleta bici = dummy -> CrearBicicleta(); 
         Nodo *nodo = new Nodo(&bici); 
-        lista->agregarOr(nodo); 
+        if(i == 0){
+            lista->AgregarPrimero(lista->cab, nodo);
+        }else{
+            Nodo *nuevaCabeza = lista->agregarOr(lista-> cab, nodo); 
+            lista->cab = nuevaCabeza;
+        }
     }
     return *lista; 
 }

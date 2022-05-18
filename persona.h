@@ -9,11 +9,11 @@ class Persona
         Persona();
         Persona(int Tel, string Nom);
         ~Persona();
-        string toString(){}
-        void setTelefono(int Tel){}
-        int getTelefono(){}
-        void setNombre(string Nom){}
-        string getNombre(){}
+        void setNombre(string Nom);
+        void setTelefono(int Tel); 
+        string getNombre(); 
+        int getTelefono(); 
+        string toString(); 
     private:
         int Telefono;
         string Nombre;

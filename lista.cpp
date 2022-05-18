@@ -10,6 +10,7 @@ Lista :: Lista()
     this->cab = NULL; 
 }
 
+/*
 Nodo* Lista::agregarOr(Nodo *cab, Nodo *nuevoItem)
 {
     if(cab == NULL )
@@ -18,18 +19,11 @@ Nodo* Lista::agregarOr(Nodo *cab, Nodo *nuevoItem)
     }
     else
     {
-        char colorTemp[] = {cab->dato->getColor()};
-        char colorItem[] = {nuevoItem->dato->getColor()};
-        int res = strcmp(colorTemp, colorItem);
+        string colorTemp = {cab->dato->getColor()};
+        string colorItem = {nuevoItem->dato->getColor()};
+        int res = colorTemp <= colorItem;
+        cout  << res << "Holaaaa"<< endl;
         if(res == 0)
-        {
-            nuevoItem->id = this->nodoId;
-            nuevoItem->next = cab->next;
-            cab->next = nuevoItem;
-            nodoId = nodoId + 1;
-            return cab;
-        }
-        else if(res > 0)
         {
             nuevoItem->id = this->nodoId;
             Nodo *temp = cab; 
@@ -37,23 +31,91 @@ Nodo* Lista::agregarOr(Nodo *cab, Nodo *nuevoItem)
             cab->next = temp; 
             nodoId = nodoId + 1;
             return cab;
-        }
-        return agregarOr(cab->next, nuevoItem );         
+        } 
+        if (cab->next == NULL) {
+            nuevoItem->id = this->nodoId;
+            cab->next = nuevoItem;
+            nodoId = nodoId + 1;
+            return cab;
+        }      
+        return agregarOr(cab->next, nuevoItem );                 
     }
 }
+// */
+
+
+void Lista::agregarOr(Nodo *cab, Nodo *nuevoItem)
+{
+    cout << "agregarOr" << endl;
+    if(cab == NULL )
+    {
+        cab = nuevoItem; 
+        cout << "cab: " << cab->dato->getColor() << endl;
+        cout << "iten: " << nuevoItem->dato->getColor() << endl; 
+        cout << "######### ingreso en cabeza" << endl;   
+    }
+    else {
+        cout<< "----------------- En el else.." << endl;
+    if(nuevoItem->dato->getColor() < cab->dato->getColor())
+    {
+        cout << "####### color antes de cabeza" << endl;
+        nuevoItem->next = cab;
+        cab = nuevoItem;
+    }
+    else
+    {
+        Nodo* x = cab;
+        while (x->next != NULL){
+            if(x->next->dato->getColor() < nuevoItem->next->dato->getColor())
+            {
+                nuevoItem->next = x->next;
+                x->next = nuevoItem;
+            }
+            else if (x->next->dato->getColor() > nuevoItem->next->dato->getColor())
+            {
+                nuevoItem->next = x;
+                x = nuevoItem;
+                break;
+            }
+            x = x->next;
+            /*if(res == 0)
+            {
+                nuevoItem->id = this->nodoId;
+                //Nodo *temp = cab; 
+                cab = nuevoItem;
+                cab->next = temp; 
+                nodoId = nodoId + 1;
+                return cab;
+            } 
+            if (cab->next == NULL) {
+                nuevoItem->id = this->nodoId;
+                cab->next = nuevoItem;
+                nodoId = nodoId + 1;
+                return cab;
+            }*/           
+        }            
+    }
+    }
+    cout << "-------------- saliedo de agregar "<< endl;
+}
+
 
 void Lista::AgregarPrimero(Nodo *cab, Nodo *nuevoItem)
 {    
-    nuevoItem->next = cab;
-    cab = nuevoItem;
-    nuevoItem->id = this->nodoId; 
-    this->nodoId = this->nodoId + 1;
+    //nuevoItem->next = cab;
+    this->cab = nuevoItem;
+    //nuevoItem->id = this->nodoId; 
+    //this->nodoId = this->nodoId + 1;
+    //return this->cab; 
 }
 
 
-void Lista:: verDatos()
+void Lista:: verDatos()   
 {
+    cout << "Ver dqtos....."<<endl;
     Nodo *temp = this->cab;
+       cout << "direccion temp " << &temp << endl;
+       cout << temp->dato->toString() << endl;
     while(temp->next != NULL)
     {
         cout<<temp->dato->toString()<<endl;
@@ -74,7 +136,7 @@ int Lista:: contarLista()
     return contador;
 }
 
-Nodo* Lista :: Eliminar(Nodo *cab, int id, int j, Nodo *nodoPrevio = NULL){
+Nodo* Lista :: Eliminar(Nodo *cab, int id, int j, Nodo *nodoPrevio ){
     int cantidad = this->contarLista(); 
     if(id > cantidad)
     {
@@ -93,14 +155,9 @@ Nodo* Lista :: Eliminar(Nodo *cab, int id, int j, Nodo *nodoPrevio = NULL){
             return nodoPrevio; 
         }
         else{
-            Eliminar(cab->next, id, j + 1);
+            Eliminar(cab->next, id, j + 1, NULL);
             return cab; 
     }
 }
-/*int Lista:: BuscarObjeto()
-{
-    Nodo* temp = this->cab; 
-    while(temp){
-        temp->dato->toString(); 
-    }
-}*/
+}
+

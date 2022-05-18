@@ -9,19 +9,19 @@ class Bicicleta
 {
     public:
         Bicicleta();
-        Bicicleta(string marca, string serial, char color, Persona *dueno);
+        Bicicleta(string marca, string serial, string color, Persona *dueno);
         ~Bicicleta();
-        string toString(){}
-        void setColor(char Color);
+        string toString(); 
+        void setColor(string Color);
         void setMarca(string Marca);
         void setSerial(string Serial);
         void setDueno(Persona *Dueno);
-        char getColor();
+        string getColor();
         string getMarca();
         string getSerial();
         string getDueno();
     private:
-        char Color;
+        string Color;
         string Marca;
         string Serial;
         Persona *Dueno;

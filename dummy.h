@@ -10,7 +10,7 @@ class Dummy{
     public:
         Bicicleta CrearBicicleta(); 
     private: 
-        char CrearColor(); 
+        string CrearColor(); 
         string CrearMarca(); 
         string CrearSerial(); 
         string CrearNombre(); 

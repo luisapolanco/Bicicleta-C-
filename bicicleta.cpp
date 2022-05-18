@@ -4,7 +4,7 @@
 #include "bicicleta.h"
 using namespace std; 
 
-Bicicleta:: Bicicleta(string marca, string serial, char color, Persona *dueno)
+Bicicleta:: Bicicleta(string marca, string serial, string color, Persona *dueno)
 {
     this->Color = color; 
     this->Marca = marca; 
@@ -17,7 +17,7 @@ Bicicleta:: ~Bicicleta()
     cout << "*se muere*"<< endl;
 }
 
-void Bicicleta:: setColor(char Color)
+void Bicicleta:: setColor(string Color)
 {
     this->Color = Color;
 }
@@ -37,7 +37,7 @@ void Bicicleta:: setDueno(Persona *Dueno)
     this->Dueno = Dueno;
 }
 
-char Bicicleta:: getColor()
+string Bicicleta:: getColor()
 {
     return this->Color;
 }
@@ -59,6 +59,6 @@ string Bicicleta:: getDueno()
 
 string Bicicleta:: toString()
 {
-    string texto = "Color: "+to_string(this->Color)+", Marca: "+this->Marca+", Serial: "+this->Serial+", Informacion dueno"+this->Dueno->toString();
+    string texto = "Color: "+this->Color+", Marca: "+this->Marca+", Serial: "+this->Serial+", Informacion dueno"+this->Dueno->toString();
     return texto;
 }

@@ -9,7 +9,7 @@ class Nodo{
         Bicicleta *dato;
         Nodo *next;
         int id; 
-        Nodo(){}
+        Nodo(); 
         Nodo(Bicicleta *Bici,Nodo *next);
         Nodo(Bicicleta *Bici);
         void toString();

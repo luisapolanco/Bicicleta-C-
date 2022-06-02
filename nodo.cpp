@@ -4,20 +4,27 @@
 #include "bicicleta.h"
 using namespace std;
 
-Nodo::Nodo(Bicicleta *Bici,Nodo *next)
+// Nodo::Nodo(Bicicleta Bici,Nodo *next)
+// {
+//     this->dato = Bici;
+//     this->next = next;
+// }
+
+Nodo::Nodo()
 {
-    this->dato = Bici;
-    this->next = next;
+
 }
 
 Nodo::Nodo(Bicicleta *Bici)
-{ 
-    this->dato = Bici;
+{  
+    Bicicleta *bici2 = new Bicicleta();
+    *&bici2 = Bici; 
+    this->dato = *bici2;
     this->next = NULL;
 }
 
 void Nodo::toString(){
-    cout << this->dato->toString() << endl;
+    cout << this->dato.toString() << endl;
     cout << "El nodo tiene: " << this->next << endl;
 }
 

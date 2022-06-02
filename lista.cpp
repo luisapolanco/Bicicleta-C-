@@ -44,59 +44,79 @@ Nodo* Lista::agregarOr(Nodo *cab, Nodo *nuevoItem)
 // */
 
 
-void Lista::agregarOr(Nodo *cab, Nodo *nuevoItem)
+void Lista::agregarOr(Nodo *&cab, Bicicleta bici)
 {
     cout << "agregarOr" << endl;
-    if(cab == NULL )
-    {
-        cab = nuevoItem; 
-        cout << "cab: " << cab->dato->getColor() << endl;
-        cout << "iten: " << nuevoItem->dato->getColor() << endl; 
-        cout << "######### ingreso en cabeza" << endl;   
+    Nodo *nuevoNodo = new Nodo(bici); 
+    //nuevoNodo->dato = bici;
+
+    Nodo *aux1 = cab; 
+    Nodo *aux2; 
+
+    while((aux1 != NULL) && (aux1->dato.getColor() < bici.getColor())){
+        aux2 = aux1;
+        aux1 = aux1->next;
     }
-    else {
-        cout<< "----------------- En el else.." << endl;
-    if(nuevoItem->dato->getColor() < cab->dato->getColor())
-    {
-        cout << "####### color antes de cabeza" << endl;
-        nuevoItem->next = cab;
-        cab = nuevoItem;
+
+    if(cab == aux1){
+        cab = nuevoNodo;
     }
-    else
-    {
-        Nodo* x = cab;
-        while (x->next != NULL){
-            if(x->next->dato->getColor() < nuevoItem->next->dato->getColor())
-            {
-                nuevoItem->next = x->next;
-                x->next = nuevoItem;
-            }
-            else if (x->next->dato->getColor() > nuevoItem->next->dato->getColor())
-            {
-                nuevoItem->next = x;
-                x = nuevoItem;
-                break;
-            }
-            x = x->next;
-            /*if(res == 0)
-            {
-                nuevoItem->id = this->nodoId;
-                //Nodo *temp = cab; 
-                cab = nuevoItem;
-                cab->next = temp; 
-                nodoId = nodoId + 1;
-                return cab;
-            } 
-            if (cab->next == NULL) {
-                nuevoItem->id = this->nodoId;
-                cab->next = nuevoItem;
-                nodoId = nodoId + 1;
-                return cab;
-            }*/           
-        }            
+    else{
+        aux2->next = nuevoNodo;
     }
-    }
-    cout << "-------------- saliedo de agregar "<< endl;
+
+    nuevoNodo->next = aux1; 
+
+    // if(cab == NULL )
+    // {
+    //     cab = nuevoItem; 
+    //     cout << "cab: " << cab->dato->getColor() << endl;
+    //     cout << "iten: " << nuevoItem->dato->getColor() << endl; 
+    //     cout << "######### ingreso en cabeza" << endl;   
+    // }
+    // else {
+    //     cout<< "----------------- En el else.." << endl;
+    // if(nuevoItem->dato->getColor() < cab->dato->getColor())
+    // {
+    //     cout << "####### color antes de cabeza" << endl;
+    //     nuevoItem->next = cab;
+    //     cab = nuevoItem;
+    // }
+    // else
+    // {
+    //     Nodo* x = cab;
+    //     while (x->next != NULL){
+    //         if(x->next->dato->getColor() < nuevoItem->next->dato->getColor())
+    //         {
+    //             nuevoItem->next = x->next;
+    //             x->next = nuevoItem;
+    //         }
+    //         else if (x->next->dato->getColor() > nuevoItem->next->dato->getColor())
+    //         {
+    //             nuevoItem->next = x;
+    //             x = nuevoItem;
+    //             break;
+    //         }
+    //         x = x->next;
+    //         /*if(res == 0)
+    //         {
+    //             nuevoItem->id = this->nodoId;
+    //             //Nodo *temp = cab; 
+    //             cab = nuevoItem;
+    //             cab->next = temp; 
+    //             nodoId = nodoId + 1;
+    //             return cab;
+    //         } 
+    //         if (cab->next == NULL) {
+    //             nuevoItem->id = this->nodoId;
+    //             cab->next = nuevoItem;
+    //             nodoId = nodoId + 1;
+    //             return cab;
+    //         }*/           
+    //     }            
+    // }
+    // }
+    // cout << "-------------- saliedo de agregar "<< endl;
 }
 
 
@@ -110,17 +130,16 @@ void Lista::AgregarPrimero(Nodo *cab, Nodo *nuevoItem)
 }
 
 
-void Lista:: verDatos()   
+void Lista:: verDatos(Nodo *&cab)   
 {
-    cout << "Ver dqtos....."<<endl;
-    Nodo *temp = this->cab;
-       cout << "direccion temp " << &temp << endl;
-       cout << temp->dato->toString() << endl;
-    while(temp->next != NULL)
-    {
-        cout<<temp->dato->toString()<<endl;
+    Nodo *actual = new Nodo();
+    actual = this->cab; 
+    while(actual != NULL)
+    {        
+        cout<<"Enel while"<< endl; 
+        actual->dato.toString();
         cout<<"--->"<<endl;
-        temp = temp->next;
+        actual = actual->next;
     }
 }
 
@@ -141,6 +160,7 @@ Nodo* Lista :: Eliminar(Nodo *cab, int id, int j, Nodo *nodoPrevio ){
     if(id > cantidad)
     {
         cout<<"El número es mayor al tamaño de la lista"<< endl; 
+        return cab; 
     }
     else
     {

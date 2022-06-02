@@ -4,6 +4,10 @@
 #include "bicicleta.h"
 using namespace std; 
 
+Bicicleta:: Bicicleta()
+{
+}
+
 Bicicleta:: Bicicleta(string marca, string serial, string color, Persona *dueno)
 {
     this->Color = color; 

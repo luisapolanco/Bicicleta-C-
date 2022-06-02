@@ -22,14 +22,13 @@ int vermenu(){
     return numero;
 }
 
-  Bicicleta* crearDatosBici(){
+Bicicleta* crearDatosBici(){
         string color;
         string marca;
         string serial; 
         string nombre; 
         int telefono; 
         Persona* persona; 
-        Bicicleta* bicicleta; 
             cout << "Ingrese color: "; 
             cin>>color;
             cout << "Ingrese Marca: ";
@@ -42,9 +41,9 @@ int vermenu(){
                 cin>>telefono; 
 
             persona = new Persona(telefono, nombre);
-            bicicleta = new Bicicleta(marca, serial, color, persona);
+            Bicicleta *bicicleta = new Bicicleta(marca, serial, color, persona);
             return bicicleta;
-  }
+}
 
 void GetMenu(Lista *lista){
     bool var = true; 
@@ -55,28 +54,25 @@ void GetMenu(Lista *lista){
         //string serial; 
         //string nombre; 
         //int telefono; 
-        Nodo *nodo; 
-        Nodo *nodoNuevo; 
+        Bicicleta *bici; 
         //Persona *persona; 
         //Bicicleta *bicicleta; 
-        int id; 
-       
+        int id;        
         switch (vermenu()){
             case 1: cout<<"Elegiste agregar ordenado" << endl;                 
-                nodo = new Nodo(crearDatosBici()); 
-                lista->agregarOr(lista->cab, nodo); 
-                lista->cab = nodoNuevo;
-                cout << lista->cab->dato->getMarca()<< endl; 
+                bici = crearDatosBici(); 
+                lista->agregarOr(lista->cab, *bici); 
+                cout << lista->cab->dato.getMarca()<< endl; 
                 break;            
             case 2:
                 cout<<"Elegiste eliminar"<<endl;
                 cout <<"Ingrese Id de Bicicleta que desea elmininar"<<endl; 
                 cin>>id; 
-                //nodo = lista->Eliminar(lista->cab, id, 0, NULL); 
+                lista->Eliminar(lista->cab, id, 0, NULL); 
                 //lista->cab = nodo; 
                 break; 
             case 3: cout<<"Elegiste ver los datos"<<endl;
-                lista->verDatos(); 
+                lista->verDatos(lista->cab); 
                 break; 
             case 4: 
                 cout<<"Elegiste contar" << endl;
@@ -99,20 +95,16 @@ Lista* GetDummies(){
     for(int i=0; i<=3; i+=1)
     {
         Bicicleta bici = dummy -> CrearBicicleta();
-        cout << bici.toString()<< endl; 
-        Nodo *nodo = new Nodo(&bici); 
+        cout << bici.toString()<< endl;
         //if(i == 0){
             //lista->AgregarPrimero(lista->cab, nodo);
         //}else{
             cout << " cabeza antes de llamar al metodo: " << lista->cab << endl;
-            Nodo* cabeza = lista->cab;
-            cabeza = nodo;
-            lista->agregarOr(cabeza, nodo); 
+            lista->agregarOr(lista->cab, bici); 
             cout << "--- mostrar color" << endl;
             cout << " cabeza: " << lista->cab << endl;
-            cout << " dato: " << lista->cab->dato << endl;
             
-            cout << lista->cab->dato->getColor() << endl;
+            cout << lista->cab->dato.getColor() << endl;
         //}
     }
     return lista; 

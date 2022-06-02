@@ -6,11 +6,11 @@ using namespace std;
 
 class Nodo{
     public:
-        Bicicleta *dato;
+        Bicicleta &dato;
         Nodo *next;
-        int id; 
+        int id;     
         Nodo(); 
-        Nodo(Bicicleta *Bici,Nodo *next);
+        //Nodo(Bicicleta Bici,Nodo *next);
         Nodo(Bicicleta *Bici);
         void toString();
         ~Nodo();
